@@ -34,14 +34,6 @@ The Nearby Now plugins for Wordpress help your SEO in two ways:
 - You can create a web page for each city you service with unique reviews and checkins. Google and other search engines prefer that your website has unique content per page. Duplicate and static content is much less valuable, and Nearby Now is a great way to build that unique dynamic content and plug it into your site.
 - The data that is published by the Nearby Now plugin is coded in optimized micro-formats. This helps search engines recognize the value of the reviews and checkins being published.
 
-##How do I get started?
-
-It's really simple. [follow the installation instructions](http://wordpress.org/extend/plugins/nearby-now/installation/), and install it like you would any other wordpress plugin, then email us at `wordpress@nearbynow.co` and we will send you back an API token that you'll enter on the Wordpress Settings page.
-
-Once you have a token you can add a plugin to any web page or blog post. For example, if your business operated in Scottsdale, AZ, and you wanted to display your recent reviews for Scottsdale and the greater Phoenix area, you'd add a short-code to your post like this:
-
-`[recentreviews city="Scottsdale" state="AZ" radius="30" count="10" zoomlevel="10"]`
-
 If you have any questions or need any assistance with the plugins, you can email us at `wordpress@nearbynow.co`, or post a message on our [support site](http://help.sidebox.com/anonymous_requests/new) and we'll help you out.
 
 == Installation ==
