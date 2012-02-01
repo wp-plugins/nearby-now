@@ -17,17 +17,11 @@ One of the most useful features of Nearby Now is the ability to send your custom
 
 The Recent Reviews plugin allows you to display the recent reviews right on your website, including a map, and a listing of the reviews.
 
-Here is an example of what the recent reviews plugin looks like:
-![Nearby Now Recent Reviews Wordpress Plugin](https://s3.amazonaws.com/cdn.nearbynow.co/blog/wordpress_recent_reviews.png)
-
 ###Service Area Map &amp; Recent Checkins
 
 If you are using Nearby Now, it means you are building a service area that represents the area you work, and the neighborhoods you service the most. Your service area and heat map are displayed on the Nearby Now network, but we also want you to display the same service area and heat map on your own website or blog.
 
 The Service Area &amp; Recent Checkins plugin was built just for that. A simple way to display your service area, heat map, and recent checkins for your customers to see.
-
-Here is an example of the service area plugin:
-![Nearby Now Service Area Plugin](https://s3.amazonaws.com/cdn.nearbynow.co/blog/wordpress_service_area.png)
 
 ###Configuration
 
