@@ -36,6 +36,10 @@ The Nearby Now plugins for Wordpress help your SEO in two ways:
 
 If you have any questions or need any assistance with the plugins, you can email us at `wordpress@nearbynow.co`, or post a message on our [support site](http://help.sidebox.com/anonymous_requests/new) and we'll help you out.
 
+##Examples
+
+[We have a demo site](http://partners.nearbynow.co/?page_id=2) setup where you can view the plugins in action.
+
 == Installation ==
 
 1. Upload `main.php` to the `/wp-content/plugins/` directory
