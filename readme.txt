@@ -32,7 +32,7 @@ Both plugins can be configured to display a certain location (city/state), as we
 The Nearby Now plugins for Wordpress help your SEO in two ways:
 
 - You can create a web page for each city you service with unique reviews and checkins. Google and other search engines prefer that your website has unique content per page. Duplicate and static content is much less valuable, and Nearby Now is a great way to build that unique dynamic content and plug it into your site.
-- The data that is published by the Nearby Now plugin is coded in optimized micro-formats. This helps search engines recognize the value of the reviews and checkins being published.
+- The data that is published by the Nearby Now plugin is coded in optimized micro-formats. This helps search engines recognize the value of the reviews and checkins being published.	
 
 If you have any questions or need any assistance with the plugins, you can email us at `wordpress@nearbynow.co`, or post a message on our [support site](http://help.sidebox.com/anonymous_requests/new) and we'll help you out.
 
@@ -41,7 +41,9 @@ If you have any questions or need any assistance with the plugins, you can email
 1. Upload `main.php` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Add your API token in the settings page
-4. Place `[recentreviews city="Scottsdale" state="AZ" radius="30" count="10" zoomlevel="10"]` in your templates
+4. To use the recent revies plugin, place `[recentreviews city="Scottsdale" state="AZ" radius="30" count="10" zoomlevel="10"]` in your templates
+5. To use the service area heat-map, and recent checkins plugin, place `[serviceareamap city="Scottsdale" state="AZ" radius="30" count="5" zoomlevel="9"]` in your templates
+6. Change the city, state, count, and radius to reflect the location of your business
 
 == Frequently Asked Questions ==
 
