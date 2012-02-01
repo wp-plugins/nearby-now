@@ -2,7 +2,7 @@
 Contributors: azcoov
 Tags: location, reviews, checkins, servicepro
 Requires at least: 2.0.2
-Tested up to: 2.1
+Tested up to: 3.3.1
 Stable tag: 1.0
 
 The Nearby Now Plugin allows you to display your recent checkins and service area heat-map.
