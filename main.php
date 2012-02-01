@@ -3,7 +3,7 @@
 	Plugin Name: Nearby Now Recent Reviews
 	Plugin URI: http://www.nearbynow.co/wordpress
 	Description: Nearby Now - Recent Reviews Plugin.
-	Version: 0.0.2
+	Version: 1.0.0
 	Author: Nearby Now
 	Author URI: http://www.nearbynow.co
 	*/

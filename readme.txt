@@ -9,7 +9,7 @@ The Nearby Now Plugin allows you to display your recent checkins and service are
 
 == Description ==
 
-Nearby Now for Wordpress is an awesome way to add your live Nearby Now checkins and reviews right to your website. The plugin can be displayed in two ways:
+[Nearby Now](http://www.nearbynow.co) for Wordpress is an awesome way to add your live Nearby Now checkins and reviews right to your website. The plugin can be displayed in two ways:
 
 ###Recent Reviews
 
@@ -36,7 +36,7 @@ The Nearby Now plugins for Wordpress help your SEO in two ways:
 
 ##How do I get started?
 
-It's really simple. [Download the plugin here](https://s3.amazonaws.com/cdn.nearbynow.co/apps/wordpress/NearbyNow_Plugins.zip), install it like you would any other wordpress plugin, then email us at `wordpress@nearbynow.co` and we will send you back an API token that you'll enter on the Wordpress Settings page.
+It's really simple. [follow the installation instructions](http://wordpress.org/extend/plugins/nearby-now/installation/), and install it like you would any other wordpress plugin, then email us at `wordpress@nearbynow.co` and we will send you back an API token that you'll enter on the Wordpress Settings page.
 
 Once you have a token you can add a plugin to any web page or blog post. For example, if your business operated in Scottsdale, AZ, and you wanted to display your recent reviews for Scottsdale and the greater Phoenix area, you'd add a short-code to your post like this:
 
