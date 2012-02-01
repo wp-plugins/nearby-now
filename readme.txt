@@ -59,9 +59,8 @@ Email us at wordpress@nearbynow.co and we'll help you out.
 
 == Screenshots ==
 
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the directory of the stable readme.txt, so in this case, `/tags/4.3/screenshot-1.png` (or jpg, jpeg, gif)
-2. This is the second screen shot
+1. Example of the recent reviews plugin
+2. Example of the service area heat map and recent checkins
 
 == Changelog ==
 
