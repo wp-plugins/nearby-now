@@ -38,13 +38,13 @@ If you have any questions or need any assistance with the plugins, you can email
 
 ##Examples
 
-[We have a demo site](http://partners.nearbynow.co/?page_id=2) setup where you can view the plugins in action.
+[We have a demo site](http://servicepros.nearbynow.co/plugins/wordpress-plugins/) setup where you learn more about the plugins and see them in action on a WordPress site.
 
 == Installation ==
 
 1. Upload `main.php` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Add your API token in the settings page
+3. Add your API token in the settings page - Login to admin.nearbynow.co and click the WordPress tab to get your API Access Token
 4. To use the recent revies plugin, place `[recentreviews city="Scottsdale" state="AZ" radius="30" count="10" zoomlevel="10"]` in your templates
 5. To use the service area heat-map, and recent checkins plugin, place `[serviceareamap city="Scottsdale" state="AZ" radius="30" count="5" zoomlevel="9"]` in your templates
 6. Change the city, state, count, and radius to reflect the location of your business
