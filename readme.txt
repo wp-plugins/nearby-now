@@ -3,9 +3,9 @@ Contributors: azcoov
 Tags: location, reviews, checkins, servicepro
 Requires at least: 2.0.2
 Tested up to: 3.3.1
-Stable tag: 1.0
+Stable tag: 1.0.1
 
-The Nearby Now Plugin allows you to display your recent checkins and service area heat-map.
+The Nearby Now Plugin allows you to display your recent checkins and service area heat-map on any blog post or web page via a short code.
 
 == Description ==
 
@@ -42,7 +42,7 @@ If you have any questions or need any assistance with the plugins, you can email
 
 == Installation ==
 
-1. Upload `main.php` to the `/wp-content/plugins/` directory
+1. Install the plugin from the [WordPress Plugin Directory](http://wordpress.org/extend/plugins/nearby-now/)
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Add your API token in the settings page - Login to admin.nearbynow.co and click the WordPress tab to get your API Access Token
 4. To use the recent revies plugin, place `[recentreviews city="Scottsdale" state="AZ" radius="30" count="10" zoomlevel="10"]` in your templates
@@ -53,7 +53,7 @@ If you have any questions or need any assistance with the plugins, you can email
 
 = How do I get an API token? =
 
-Email us at wordpress@nearbynow.co and we'll help you out.
+Login to admin.nearbynow.co and click the WordPress tab to get your API Access Token. Email us at wordpress@nearbynow.co if you are having trouble and we'll help you out.
 
 == Screenshots ==
 
@@ -61,6 +61,9 @@ Email us at wordpress@nearbynow.co and we'll help you out.
 2. Example of the service area heat map and recent checkins
 
 == Changelog ==
+
+= 1.0.1 =
+* Version 1.0.1 fixes a bug in the order that the plugin content is rendered to the browser
 
 = 1.0 =
 * Version 1.0 releaseed!

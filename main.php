@@ -1,9 +1,9 @@
 <?php
 	/*
 	Plugin Name: Nearby Now Recent Reviews
-	Plugin URI: http://www.nearbynow.co/wordpress
-	Description: Nearby Now - Recent Reviews Plugin.
-	Version: 1.0.0
+	Plugin URI: http://servicepros.nearbynow.co/plugins/wordpress-plugins/
+	Description: Nearby Now - Recent Reviews and Service Area Plugin.
+	Version: 1.0.1
 	Author: Nearby Now
 	Author URI: http://www.nearbynow.co
 	*/
@@ -49,10 +49,9 @@
 		$url = "http://api.sidebox.com/plugin/nearbyreviews?storefronttoken=$token&state=$state&city=$city&zoomlevel=$zoom&radius=$radius";
 		$response = wp_remote_get($url);
 		if( is_wp_error( $response ) ) {
-		   echo 'Oops, something went wrong with the Nearby Now plugin';
-		} else {
-		   //$array = json_decode($response['body']);  
-		   print_r( $response['body'] );
+		   return 'Oops, something went wrong with the Nearby Now plugin';
+		} else { 
+		   return $response['body'];
 		}
 	}
 
@@ -69,10 +68,9 @@
 		$url = "http://api.sidebox.com/plugin/nearbyservicearea?storefronttoken=$token&state=$state&city=$city&zoomlevel=$zoom&radius=$radius";
 		$response = wp_remote_get($url);
 		if( is_wp_error( $response ) ) {
-		   echo 'Oops, something went wrong with the Nearby Now plugin';
+		   return 'Oops, something went wrong with the Nearby Now plugin';
 		} else {
-		   //$array = json_decode($response['body']);  
-		   print_r( $response['body'] );
+		   return $response['body'];
 		}
 	}
 
