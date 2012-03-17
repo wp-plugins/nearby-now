@@ -3,7 +3,7 @@
 	Plugin Name: Nearby Now Recent Reviews
 	Plugin URI: http://servicepros.nearbynow.co/plugins/wordpress-plugins/
 	Description: Nearby Now - Recent Reviews and Service Area Plugin.
-	Version: 1.0.1
+	Version: 1.0.2
 	Author: Nearby Now
 	Author URI: http://www.nearbynow.co
 	*/
@@ -108,7 +108,7 @@ function nearbynow_options_page() { ?>
 	}
 
 	function nearbynow_section_text() {
-		echo '<p>The API Token is required for the Nearby Now plugin to function. If the token is missing or invalid the plugin will display an emoty string.</p>';
+		echo '<p>To use the plugin, simply enter one of the plugin short-codes into any page or blog post. To see an example of how to enter a short code, visit our <a href="http://servicepros.nearbynow.co/plugins/wordpress-plugins/">sample wordpress site</a>.</p><br/><p>The API Token is required for the Nearby Now plugin to function. If the token is missing or invalid the plugin will display an emoty string. Enter your API key below and click save token.</p>';
 	}
 
 	function nearbynow_setting_string() {
