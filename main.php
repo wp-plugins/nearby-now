@@ -3,7 +3,7 @@
 	Plugin Name: Nearby Now Recent Reviews
 	Plugin URI: http://servicepros.nearbynow.co/plugins/wordpress-plugins/
 	Description: Nearby Now - Recent Reviews and Service Area Plugin.
-	Version: 1.0.2
+	Version: 1.0.3
 	Author: Nearby Now
 	Author URI: http://www.nearbynow.co
 	*/
@@ -41,12 +41,13 @@
 		$city = urlencode($atts['city']);
 		$radius = $atts['radius'];
 		$showMap = $atts['showmap'];
+		$showFavorites = $atts['showfavorites'];
 		$start = $atts['start'];
 		$count = $atts['count'];
 		$zoom = $atts['zoomlevel'];
 		$options = get_option('nearbynow_options');
 		$token = $options['text_string'];
-		$url = "http://api.sidebox.com/plugin/nearbyreviews?storefronttoken=$token&state=$state&city=$city&zoomlevel=$zoom&radius=$radius";
+		$url = "http://api.sidebox.com/plugin/nearbyreviews?storefronttoken=$token&state=$state&city=$city&zoomlevel=$zoom&radius=$radius&count=$count&showmap=$showMap&showfavorites=$showFavorites";
 		$response = wp_remote_get($url);
 		if( is_wp_error( $response ) ) {
 		   return 'Oops, something went wrong with the Nearby Now plugin';
@@ -60,12 +61,13 @@
 		$city = urlencode($atts['city']);
 		$radius = $atts['radius'];
 		$showMap = $atts['showmap'];
+		$showFavorites = $atts['showfavorites'];
 		$start = $atts['start'];
 		$count = $atts['count'];
 		$zoom = $atts['zoomlevel'];
 		$options = get_option('nearbynow_options');
 		$token = $options['text_string'];
-		$url = "http://api.sidebox.com/plugin/nearbyservicearea?storefronttoken=$token&state=$state&city=$city&zoomlevel=$zoom&radius=$radius";
+		$url = "http://api.sidebox.com/plugin/nearbyservicearea?storefronttoken=$token&state=$state&city=$city&zoomlevel=$zoom&radius=$radius&count=$count&showmap=$showMap&showfavorites=$showFavorites";
 		$response = wp_remote_get($url);
 		if( is_wp_error( $response ) ) {
 		   return 'Oops, something went wrong with the Nearby Now plugin';
