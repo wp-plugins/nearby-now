@@ -3,7 +3,7 @@
 	Plugin Name: Nearby Now Recent Reviews
 	Plugin URI: http://servicepros.nearbynow.co/plugins/wordpress-plugins/
 	Description: Nearby Now - Recent Reviews and Service Area Plugin.
-	Version: 1.0.3
+	Version: 1.1.0
 	Author: Nearby Now
 	Author URI: http://www.nearbynow.co
 	*/
@@ -12,6 +12,7 @@
 	add_action('wp_enqueue_scripts', 'load_nearbynow_remote_scripts');
 	add_shortcode('recentreviews','get_recent_reviews');
 	add_shortcode('serviceareamap','get_service_area_map');
+	add_shortcode('serviceareareviewcombo', 'get_service_area_review_combo_map');
 
 	function add_nearbynow_stylesheet() {
 	    wp_register_style( 'nearbynow_css', 'https://s3.amazonaws.com/cdn.nearbynow.co/css/nnplugin.css' );
@@ -37,6 +38,7 @@
 	}
 
 	function get_recent_reviews($atts) {  
+		$agent = urlencode($_SERVER['HTTP_USER_AGENT']);
 		$state = urlencode($atts['state']);
 		$city = urlencode($atts['city']);
 		$radius = $atts['radius'];
@@ -45,9 +47,12 @@
 		$start = $atts['start'];
 		$count = $atts['count'];
 		$zoom = $atts['zoomlevel'];
+		$mapScrollWheel = $atts['mapscrollwheel'];
+		$fbLike = $atts['fblike'];
+		$fbcomment = $atts['fbcomment'];
 		$options = get_option('nearbynow_options');
 		$token = $options['text_string'];
-		$url = "http://api.sidebox.com/plugin/nearbyreviews?storefronttoken=$token&state=$state&city=$city&zoomlevel=$zoom&radius=$radius&count=$count&showmap=$showMap&showfavorites=$showFavorites";
+		$url = "http://api.sidebox.com/plugin/nearbyreviews?storefronttoken=$token&state=$state&city=$city&zoomlevel=$zoom&radius=$radius&count=$count&showmap=$showMap&showfavorites=$showFavorites&mapscrollwheel=$mapScrollWheel&fblike=$fbLike&fbcomment=$fbComment&agent=$agent";
 		$response = wp_remote_get($url);
 		if( is_wp_error( $response ) ) {
 		   return 'Oops, something went wrong with the Nearby Now plugin';
@@ -57,6 +62,7 @@
 	}
 
 	function get_service_area_map($atts) {  
+		$agent = urlencode($_SERVER['HTTP_USER_AGENT']);
 		$state = urlencode($atts['state']);
 		$city = urlencode($atts['city']);
 		$radius = $atts['radius'];
@@ -65,9 +71,40 @@
 		$start = $atts['start'];
 		$count = $atts['count'];
 		$zoom = $atts['zoomlevel'];
+		$mapScrollWheel = $atts['mapscrollwheel'];
+		$fbLike = $atts['fblike'];
+		$fbcomment = $atts['fbcomment'];
 		$options = get_option('nearbynow_options');
 		$token = $options['text_string'];
-		$url = "http://api.sidebox.com/plugin/nearbyservicearea?storefronttoken=$token&state=$state&city=$city&zoomlevel=$zoom&radius=$radius&count=$count&showmap=$showMap&showfavorites=$showFavorites";
+		$url = "http://api.sidebox.com/plugin/nearbyservicearea?storefronttoken=$token&state=$state&city=$city&zoomlevel=$zoom&radius=$radius&count=$count&showmap=$showMap&showfavorites=$showFavorites&mapscrollwheel=$mapScrollWheel&fblike=$fbLike&fbcomment=$fbComment&agent=$agent";
+		$response = wp_remote_get($url);
+		if( is_wp_error( $response ) ) {
+		   return 'Oops, something went wrong with the Nearby Now plugin';
+		} else {
+		   return $response['body'];
+		}
+	}
+	
+	function get_service_area_review_combo_map($atts) {  
+		$agent = urlencode($_SERVER['HTTP_USER_AGENT']);
+		$state = urlencode($atts['state']);
+		$city = urlencode($atts['city']);
+		$radius = $atts['radius'];
+		$showMap = $atts['showmap'];
+		$showFavorites = $atts['showfavorites'];
+		$reviewStart = $atts['reviewstart'];
+		$checkinStart = $atts['checkinstart'];
+		$reviewCount = $atts['reviewcount'];
+		$checkinCount = $atts['checkincount'];
+		$zoom = $atts['zoomlevel'];
+		$reviewCityUrl = urlencode($atts['reviewcityurl']);
+		$mapSize = $atts['mapsize'];
+		$mapScrollWheel = $atts['mapscrollwheel'];
+		$fbLike = $atts['fblike'];
+		$fbcomment = $atts['fbcomment'];
+		$options = get_option('nearbynow_options');
+		$token = $options['text_string'];
+		$url = "http://api.sidebox.com/plugin/nearbyserviceareareviewcombo?storefronttoken=$token&state=$state&city=$city&zoomlevel=$zoom&radius=$radius&reviewcityurl=$reviewCityUrl&reviewstart=$reviewStart&checkinstart=$checkinStart&reviewcount=$reviewCount&checkincount=$checkinCount&showmap=$showMap&mapsize=$mapSize&mapscrollwheel=$mapScrollWheel&fblike=$fbLike&fbcomment=$fbComment&showfavorites=$showFavorites&agent=$agent";
 		$response = wp_remote_get($url);
 		if( is_wp_error( $response ) ) {
 		   return 'Oops, something went wrong with the Nearby Now plugin';
