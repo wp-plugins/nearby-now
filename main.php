@@ -3,7 +3,7 @@
 	Plugin Name: Nearby Now Recent Reviews
 	Plugin URI: http://servicepros.nearbynow.co/plugins/wordpress-plugins/
 	Description: Nearby Now - Recent Reviews and Service Area Plugin.
-	Version: 1.1.0
+	Version: 1.1.1
 	Author: Nearby Now
 	Author URI: http://www.nearbynow.co
 	*/
