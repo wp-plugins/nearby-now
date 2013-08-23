@@ -3,7 +3,7 @@
 	Plugin Name: Nearby Now Recent Reviews
 	Plugin URI: http://servicepros.nearbynow.co/plugins/wordpress-plugins/
 	Description: Nearby Now - Recent Reviews and Service Area Plugin.
-	Version: 1.1.1
+	Version: 1.2.0
 	Author: Nearby Now
 	Author URI: http://www.nearbynow.co
 	*/
@@ -20,12 +20,9 @@
 	}
 
 	function load_nearbynow_remote_scripts() {
-	    wp_deregister_script('jquery');
-	    wp_register_script('jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js');
-	    wp_enqueue_script( 'jquery');
 
 	    wp_register_script( 'nearbynow_map', 'http://maps.google.com/maps/api/js?sensor=false');
-	    wp_enqueue_script( 'nearbynow_map', array('jquery') );
+	    wp_enqueue_script( 'nearbynow_map' );
 
 	    wp_register_script( 'nearbynow_heatmap', 'https://s3.amazonaws.com/cdn.nearbynow.co/scripts/heatmap.js');
 	    wp_enqueue_script( 'nearbynow_heatmap', array('nearbynow_map') );
@@ -147,7 +144,7 @@ function nearbynow_options_page() { ?>
 	}
 
 	function nearbynow_section_text() {
-		echo '<p>To use the plugin, simply enter one of the plugin short-codes into any page or blog post. To see an example of how to enter a short code, visit our <a href="http://servicepros.nearbynow.co/plugins/wordpress-plugins/">sample wordpress site</a>.</p><br/><p>The API Token is required for the Nearby Now plugin to function. If the token is missing or invalid the plugin will display an emoty string. Enter your API key below and click save token.</p>';
+		echo '<p>To use the plugin, simply enter one of the plugin short-codes into any page or blog post. To see an example of how to enter a short code, visit our <a href="http://servicepros.nearbynow.co/plugins/wordpress-plugins/">sample wordpress site</a>.</p><br/><p>The API Token is required for the Nearby Now plugin to function. If the token is missing or invalid the plugin will display an empty string. Enter your API key below and click save token.</p>';
 	}
 
 	function nearbynow_setting_string() {
