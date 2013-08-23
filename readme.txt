@@ -2,10 +2,10 @@
 Contributors: azcoov
 Tags: location, reviews, check-ins, servicepro
 Requires at least: 2.0.2
-Tested up to: 3.3.1
-Stable tag: 1.1.0
+Tested up to: 3.6.0
+Stable tag: 1.2.0
 
-The Nearby Now Plugin allows you to display your reviews and check-in content, along with your service area heat-map on any blog post or web page via a short code.
+The Nearby Now Plugin allows you to display your reviews and check-in locations and photos, along with your service area heat-map on any blog post or web page via a short code.
 
 == Description ==
 
@@ -109,9 +109,9 @@ If you have any questions or need any assistance with the plugins, you can email
 
 == Frequently Asked Questions ==
 
-= How do I get an API token? =
+= How do I find my API token? =
 
-Login to admin.nearbynow.co and click the WordPress tab to get your API Access Token. Email us at wordpress@nearbynow.co if you are having trouble and we'll help you out.
+Login to admin.nearbynow.co and click the WordPress tab to get your API Access Token. Email us at support@nearbynow.co if you are having trouble and we'll help you out.
 
 == Screenshots ==
 
@@ -119,6 +119,13 @@ Login to admin.nearbynow.co and click the WordPress tab to get your API Access T
 2. Example of the service area heat map and recent checkins
 
 == Changelog ==
+= 1.2.0 =
+* Removed our version of jQuery in favor the version that WordPress automatically loads
+* WordPress compatibility version bump to 3.6
+
+= 1.1.1 =
+* Version 1.1.1 is a compatibility version bump
+
 = 1.1.0 =
 * Version 1.1.0 adds the powerful service area and review combination map, and several new parameters for all short codes
 
