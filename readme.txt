@@ -3,13 +3,13 @@ Contributors: azcoov
 Tags: location, reviews, check-ins, servicepro
 Requires at least: 2.0.2
 Tested up to: 3.6.0
-Stable tag: 1.2.0
+Stable tag: 1.3.0
 
-The Nearby Now Plugin allows you to display your reviews and check-in locations and photos, along with your service area heat-map on any blog post or web page via a short code.
+The Nearby Now Plugin allows you to display your good customer reviews, check-in locations and photos, and a service area heat-map on any blog post or web page via a short code. We've also introduced [Audio Testimonials](http://servicepros.nearbynow.co/introducing-audio-testimonials/), a simple way to display an audio playlist of your great customer feedback.
 
 == Description ==
 
-[Nearby Now](http://www.nearbynow.co) for Wordpress is an awesome way to add your live Nearby Now reviews and check-ins, along with an eye-catching interactive service area heat-map to your website. The plugin can be displayed in three ways:
+[Nearby Now](http://www.nearbynow.co) for Wordpress is an awesome way to add your real-time Nearby Now reviews and check-ins, along with an eye-catching interactive service area heat-map to your website. The plugin can be displayed in five ways:
 
 ###Service Area and Reviews Combination Map
 
@@ -38,6 +38,7 @@ Place the combination map on city-specific pages to provide for unique, rich, dy
 - mapscrollwheel="no" - Optional, defaults to "no".  If specified as "yes", then the mouse scroll wheel may be used to change the zoom level of the interactive map.
 - fblike="no" - Optional, defaults to "no".  If specified as "yes", a Facebook like button plugin will be rendered below each rendered review.
 - fbcomment="no" - Optional, defaults to "no".  If specified as "yes", a Facebook comment plugin will be rendered below each rendered review.
+- - techemail="name@website.com" - Optional.  Provide the email address for the technician that you want to filter reviews and checkins to
 
 
 ###Recent Reviews
@@ -81,9 +82,21 @@ The Service Area &amp; Recent Checkins plugin was built just for that. A simple 
 - fblike="no" - Optional, defaults to "no".  If specified as "yes", a Facebook like button plugin will be rendered below each rendered check-in.
 - fbcomment="no" - Optional, defaults to "no".  If specified as "yes", a Facebook comment plugin will be rendered below each rendered check-in.
 
+###Audio Testimonials
+
+If you are using the Nearby Now Audio Testimonials, then this ShortCode is for you. Easily display your favorite customer voice testimonials on any blog post or web page.
+
+####Audio Testimonials ShortCode and Options:
+####[nearynowtestimonials]
+
+- playlist="Demo" - ***Required***.  The specific playlist of audio testimonials that you want to display.
+- showTranscription="true" - Optional.  If you have a playlist of audio testimonials that you've had transcribed, set this flag to true and we'll display the transcriptions along with the audio player.
+- start="1" - Optional, defaults to "1".  Indicates the starting voice testimonial number to render, based on a reverse chronological order, and may be used for paging.
+- count="15" - Optional, defaults to 15.  Specifies the number of voice testimonials to render based on a reverse chronological order.
+
 ###Configuration
 
-Both plugins can be configured to display a certain location (city/state), as well as a map zoom level, a radius around the city, and the number of items you'd like to show. This is very helpful for those businesses that have multiple locations and host a page for each location and would like to display the plugin data in that locations context.
+The Review and Service-Area based plugins can be configured to display a certain location (city/state), as well as a map zoom level, a radius around the city, and the number of items you'd like to show. This is very helpful for those businesses that have multiple locations and host a page for each location and would like to display the plugin data in that locations context.
 
 ###How do these plugins help you?
 
@@ -92,7 +105,7 @@ The Nearby Now plugins for Wordpress help your SEO in two ways:
 - You can create a web page for each city you service with unique reviews and checkins. Google and other search engines prefer that your website has unique content per page. Duplicate and static content is much less valuable, and Nearby Now is a great way to build that unique dynamic content and plug it into your site.
 - The data that is published by the Nearby Now plugin is coded in optimized micro-formats. This helps search engines recognize the value of the reviews and check-ins being published.	
 
-If you have any questions or need any assistance with the plugins, you can email us at `wordpress@nearbynow.co`, or post a message on our [support site](http://help.sidebox.com/anonymous_requests/new) and we'll help you out.
+If you have any questions or need any assistance with the plugins, you can email us at `support@nearbynow.co`.
 
 ###Examples
 
@@ -103,9 +116,10 @@ If you have any questions or need any assistance with the plugins, you can email
 1. Install the plugin from the [WordPress Plugin Directory](http://wordpress.org/extend/plugins/nearby-now/)
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Add your API token in the settings page - Login to admin.nearbynow.co and click the WordPress tab to get your API Access Token
-4. To use the recent revies plugin, place `[recentreviews city="Scottsdale" state="AZ" radius="30" count="10" zoomlevel="10"]` in your templates
+4. To use the recent reviews plugin, place `[recentreviews city="Scottsdale" state="AZ" radius="30" count="10" zoomlevel="10"]` in your templates
 5. To use the service area heat-map, and recent checkins plugin, place `[serviceareamap city="Scottsdale" state="AZ" radius="30" count="5" zoomlevel="9"]` in your templates
 6. Change the city, state, count, and radius to reflect the location of your business
+7. To use the audio testimonials plugin, place `[nearynowtestimonials playlist="happy"]` in your templates
 
 == Frequently Asked Questions ==
 
@@ -117,8 +131,13 @@ Login to admin.nearbynow.co and click the WordPress tab to get your API Access T
 
 1. Example of the recent reviews plugin
 2. Example of the service area heat map and recent checkins
+3. Example of the audio testimonials plugin and audio player
 
 == Changelog ==
+= 1.3.0 =
+* Added Audio Testimonial ShortCode
+* Added technician email as a param to the combo ShortCode
+
 = 1.2.0 =
 * Removed our version of jQuery in favor the version that WordPress automatically loads
 * WordPress compatibility version bump to 3.6
