@@ -52,7 +52,8 @@
 		$fbLike = $atts['fblike'];
 		$fbcomment = $atts['fbcomment'];
 		$options = get_option('nearbynow_options');
-		$token = $options['text_string'];
+		$apitoken = $options['text_string'];
+		$token = trim($apitoken);
 		$url = "http://api.sidebox.com/plugin/nearbyreviews?storefronttoken=$token&state=$state&city=$city&zoomlevel=$zoom&radius=$radius&count=$count&showmap=$showMap&showfavorites=$showFavorites&mapscrollwheel=$mapScrollWheel&fblike=$fbLike&fbcomment=$fbComment&agent=$agent";
 		$response = wp_remote_get($url);
 		if( is_wp_error( $response ) ) {
@@ -76,7 +77,8 @@
 		$fbLike = $atts['fblike'];
 		$fbcomment = $atts['fbcomment'];
 		$options = get_option('nearbynow_options');
-		$token = $options['text_string'];
+		$apitoken = $options['text_string'];
+		$token = trim($apitoken);
 		$url = "http://api.sidebox.com/plugin/nearbyservicearea?storefronttoken=$token&state=$state&city=$city&zoomlevel=$zoom&radius=$radius&count=$count&showmap=$showMap&showfavorites=$showFavorites&mapscrollwheel=$mapScrollWheel&fblike=$fbLike&fbcomment=$fbComment&agent=$agent";
 		$response = wp_remote_get($url);
 		if( is_wp_error( $response ) ) {
@@ -105,7 +107,8 @@
 		$fbLike = $atts['fblike'];
 		$fbcomment = $atts['fbcomment'];
 		$options = get_option('nearbynow_options');
-		$token = $options['text_string'];
+		$apitoken = $options['text_string'];
+		$token = trim($apitoken);
 		$url = "http://api.sidebox.com/plugin/nearbyserviceareareviewcombo?storefronttoken=$token&state=$state&city=$city&zoomlevel=$zoom&radius=$radius&reviewcityurl=$reviewCityUrl&reviewstart=$reviewStart&checkinstart=$checkinStart&reviewcount=$reviewCount&checkincount=$checkinCount&showmap=$showMap&mapsize=$mapSize&mapscrollwheel=$mapScrollWheel&fblike=$fbLike&fbcomment=$fbComment&showfavorites=$showFavorites&techemail=$techEmail&agent=$agent";
 		$response = wp_remote_get($url);
 		if( is_wp_error( $response ) ) {
@@ -122,7 +125,8 @@
 		$playlist = $atts['playlist'];
 		$showTranscription = $atts['showtranscription'];
 		$options = get_option('nearbynow_options');
-		$token = $options['text_string'];
+		$apitoken = $options['text_string'];
+		$token = trim($apitoken);
 		$url = "http://api.sidebox.com/plugin/testimonials?storefronttoken=$token&start=$start&count=$count&playlist=$playlist&showtranscription=$showTranscription&agent=$agent";
 		$response = wp_remote_get($url);
 		if( is_wp_error( $response ) ) {
@@ -133,8 +137,8 @@
 	}
 
 	function nearbynow_admin() {  
-	    $opt_name = array('api_token' => 'nbn_api_token');
-	    $hidden_field_name = 'nbn_submit_hidden';
+	  $opt_name = array('api_token' => 'nbn_api_token');
+	  $hidden_field_name = 'nbn_submit_hidden';
 		if(isset($_POST[ $hidden_field_name ]) && $_POST[ $hidden_field_name ] == 'Y' ) {
 		    $opt_val = array('api_token' => $_POST[ $opt_name['api_token'] ]);
 		}
