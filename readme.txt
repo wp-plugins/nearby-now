@@ -2,8 +2,8 @@
 Contributors: azcoov
 Tags: location, reviews, check-ins, servicepro
 Requires at least: 2.0.2
-Tested up to: 3.7.1
-Stable tag: 1.3.2
+Tested up to: 3.8
+Stable tag: 1.3.4
 
 The Nearby Now Plugin allows you to display your good customer reviews, check-in locations and photos, and a service area heat-map on any blog post or web page via a short code. We've also introduced [Audio Testimonials](http://servicepros.nearbynow.co/introducing-audio-testimonials/), a simple way to display an audio playlist of your great customer feedback.
 
@@ -134,6 +134,12 @@ Login to admin.nearbynow.co and click the WordPress tab to get your API Access T
 3. Example of the audio testimonials plugin and audio player
 
 == Changelog ==
+= 1.3.4 =
+* WordPress compatibility version bump to 3.8
+
+= 1.3.3 =
+* Fix for Review City URL's
+
 = 1.3.2 =
 * Trimming all whitespace on the API key which fix some 400 erros; common when copy/pasting the API key from email or the web
 

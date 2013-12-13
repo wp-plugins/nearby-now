@@ -3,7 +3,7 @@
 	Plugin Name: Nearby Now Reviews and Audio Testimonials
 	Plugin URI: http://servicepros.nearbynow.co/plugins/wordpress-plugins/
 	Description: Nearby Now - Recent Reviews, Service Area Plugin and Audio Testimonials.
-	Version: 1.3.2
+	Version: 1.3.4
 	Author: Nearby Now
 	Author URI: http://www.nearbynow.co
 	*/
@@ -101,7 +101,9 @@
 		$reviewCount = $atts['reviewcount'];
 		$checkinCount = $atts['checkincount'];
 		$zoom = $atts['zoomlevel'];
-		$reviewCityUrl = urlencode($atts['reviewcityurl']);
+
+		$reviewCityUrl = urlencode(str_replace('\"', '', $atts['reviewcityurl']));
+
 		$mapSize = $atts['mapsize'];
 		$mapScrollWheel = $atts['mapscrollwheel'];
 		$fbLike = $atts['fblike'];
@@ -145,7 +147,7 @@
 	}
 
 	function nearbynow_admin_actions() {  
-	    add_options_page("NearbyNow", "NearbyNow", 1, "NearbyNow", "nearbynow_options_page");  
+	    add_options_page("Nearby Now", "Nearby Now", 1, "NearbyNow", "nearbynow_options_page");  
 	}
 	  
 	add_action('admin_menu', 'nearbynow_admin_actions');
