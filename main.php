@@ -3,138 +3,152 @@
 	Plugin Name: Nearby Now Reviews and Audio Testimonials
 	Plugin URI: http://servicepros.nearbynow.co/plugins/wordpress-plugins/
 	Description: Nearby Now - Recent Reviews, Service Area Plugin and Audio Testimonials.
-	Version: 1.3.2
+	Version: 1.3.5
 	Author: Nearby Now
 	Author URI: http://www.nearbynow.co
 	*/
 
-	add_action('wp_print_styles', 'add_nearbynow_stylesheet');
-	add_action('wp_enqueue_scripts', 'load_nearbynow_remote_scripts');
-	add_shortcode('recentreviews','get_recent_reviews');
-	add_shortcode('serviceareamap','get_service_area_map');
-	add_shortcode('serviceareareviewcombo', 'get_service_area_review_combo_map');
-	add_shortcode('nearbynowtestimonials', 'get_testimonials');
+	class NearbyNow_ShortCode {
+		static $add_scripts;
 
-	function add_nearbynow_stylesheet() {
-	    wp_register_style( 'nearbynow_css', 'https://s3.amazonaws.com/cdn.nearbynow.co/css/nnplugin.css' );
-	    wp_enqueue_style( 'nearbynow_css' );	
-	}
+		static function init() {
+			add_shortcode('recentreviews', array(__CLASS__, 'get_recent_reviews'));
+			add_shortcode('serviceareamap', array(__CLASS__, 'get_service_area_map'));
+			add_shortcode('serviceareareviewcombo', array(__CLASS__, 'get_service_area_review_combo_map'));
+			add_shortcode('nearbynowtestimonials', array(__CLASS__, 'get_testimonials'));
 
-	function load_nearbynow_remote_scripts() {
-
-	    wp_register_script( 'nearbynow_map', 'http://maps.google.com/maps/api/js?sensor=false');
-	    wp_enqueue_script( 'nearbynow_map' );
-
-	    wp_register_script( 'nearbynow_heatmap', 'https://s3.amazonaws.com/cdn.nearbynow.co/scripts/heatmap.js');
-	    wp_enqueue_script( 'nearbynow_heatmap', array('nearbynow_map') );
-
-	    wp_register_script( 'nearbynow_heatmap_gmaps', 'https://s3.amazonaws.com/cdn.nearbynow.co/scripts/heatmap-gmaps.js');
-	    wp_enqueue_script( 'nearbynow_heatmap_gmaps', array('nearbynow_heatmap') );
-
-	    wp_register_script( 'nearbynow_map', 'http://maps.google.com/maps/api/js?sensor=false');
-	    wp_enqueue_script( 'nearbynow_map', array('nearbynow_heatmap_gmaps') );
-
-	    wp_register_script( 'nearbynow_testimonials', 'http://cdn.nearbynow.co.s3.amazonaws.com/scripts/player-min.js');
-	    wp_enqueue_script( 'nearbynow_testimonials', array('nearbynow_testimonials') );
-	}
-
-	function get_recent_reviews($atts) {  
-		$agent = urlencode($_SERVER['HTTP_USER_AGENT']);
-		$state = urlencode($atts['state']);
-		$city = urlencode($atts['city']);
-		$radius = $atts['radius'];
-		$showMap = $atts['showmap'];
-		$showFavorites = $atts['showfavorites'];
-		$start = $atts['start'];
-		$count = $atts['count'];
-		$zoom = $atts['zoomlevel'];
-		$mapScrollWheel = $atts['mapscrollwheel'];
-		$fbLike = $atts['fblike'];
-		$fbcomment = $atts['fbcomment'];
-		$options = get_option('nearbynow_options');
-		$apitoken = $options['text_string'];
-		$token = trim($apitoken);
-		$url = "http://api.sidebox.com/plugin/nearbyreviews?storefronttoken=$token&state=$state&city=$city&zoomlevel=$zoom&radius=$radius&count=$count&showmap=$showMap&showfavorites=$showFavorites&mapscrollwheel=$mapScrollWheel&fblike=$fbLike&fbcomment=$fbComment&agent=$agent";
-		$response = wp_remote_get($url);
-		if( is_wp_error( $response ) ) {
-		   return 'Oops, something went wrong with the Nearby Now plugin';
-		} else { 
-		   return $response['body'];
+			add_action('init', array(__CLASS__, 'register_scripts'));
+			add_action('wp_footer', array(__CLASS__, 'render_scripts'));
 		}
+
+		static function get_recent_reviews($atts) {  
+			self::$add_scripts = true;
+
+			$agent = urlencode($_SERVER['HTTP_USER_AGENT']);
+			$state = urlencode($atts['state']);
+			$city = urlencode($atts['city']);
+			$radius = $atts['radius'];
+			$showMap = $atts['showmap'];
+			$showFavorites = $atts['showfavorites'];
+			$start = $atts['start'];
+			$count = $atts['count'];
+			$zoom = $atts['zoomlevel'];
+			$mapScrollWheel = $atts['mapscrollwheel'];
+			$fbLike = $atts['fblike'];
+			$fbcomment = $atts['fbcomment'];
+			$options = get_option('nearbynow_options');
+			$apitoken = $options['text_string'];
+			$token = trim($apitoken);
+			$url = "http://api.sidebox.com/plugin/nearbyreviews?storefronttoken=$token&state=$state&city=$city&zoomlevel=$zoom&radius=$radius&count=$count&showmap=$showMap&showfavorites=$showFavorites&mapscrollwheel=$mapScrollWheel&fblike=$fbLike&fbcomment=$fbComment&agent=$agent";
+			$response = wp_remote_get($url);
+			if( is_wp_error( $response ) ) {
+			   return 'Oops, something went wrong with the Nearby Now plugin';
+			} else { 
+			   return $response['body'];
+			}
+		}
+
+		static function get_service_area_map($atts) {  
+			self::$add_scripts = true;
+			$agent = urlencode($_SERVER['HTTP_USER_AGENT']);
+			$state = urlencode($atts['state']);
+			$city = urlencode($atts['city']);
+			$radius = $atts['radius'];
+			$showMap = $atts['showmap'];
+			$showFavorites = $atts['showfavorites'];
+			$start = $atts['start'];
+			$count = $atts['count'];
+			$zoom = $atts['zoomlevel'];
+			$mapScrollWheel = $atts['mapscrollwheel'];
+			$fbLike = $atts['fblike'];
+			$fbcomment = $atts['fbcomment'];
+			$options = get_option('nearbynow_options');
+			$apitoken = $options['text_string'];
+			$token = trim($apitoken);
+			$url = "http://api.sidebox.com/plugin/nearbyservicearea?storefronttoken=$token&state=$state&city=$city&zoomlevel=$zoom&radius=$radius&count=$count&showmap=$showMap&showfavorites=$showFavorites&mapscrollwheel=$mapScrollWheel&fblike=$fbLike&fbcomment=$fbComment&agent=$agent";
+			$response = wp_remote_get($url);
+			if( is_wp_error( $response ) ) {
+			   return 'Oops, something went wrong with the Nearby Now plugin';
+			} else {
+			   return $response['body'];
+			}
+		}
+
+		static function get_service_area_review_combo_map($atts) { 
+			self::$add_scripts = true; 
+			$agent = urlencode($_SERVER['HTTP_USER_AGENT']);
+			$state = urlencode($atts['state']);
+			$city = urlencode($atts['city']);
+			$radius = $atts['radius'];
+			$showMap = $atts['showmap'];
+			$showFavorites = $atts['showfavorites'];
+			$techEmail = $atts['techemail'];
+			$reviewStart = $atts['reviewstart'];
+			$checkinStart = $atts['checkinstart'];
+			$reviewCount = $atts['reviewcount'];
+			$checkinCount = $atts['checkincount'];
+			$zoom = $atts['zoomlevel'];
+
+			$reviewCityUrl = urlencode(str_replace('\"', '', $atts['reviewcityurl']));
+
+			$mapSize = $atts['mapsize'];
+			$mapScrollWheel = $atts['mapscrollwheel'];
+			$fbLike = $atts['fblike'];
+			$fbcomment = $atts['fbcomment'];
+			$options = get_option('nearbynow_options');
+			$apitoken = $options['text_string'];
+			$token = trim($apitoken);
+			$url = "http://api.sidebox.com/plugin/nearbyserviceareareviewcombo?storefronttoken=$token&state=$state&city=$city&zoomlevel=$zoom&radius=$radius&reviewcityurl=$reviewCityUrl&reviewstart=$reviewStart&checkinstart=$checkinStart&reviewcount=$reviewCount&checkincount=$checkinCount&showmap=$showMap&mapsize=$mapSize&mapscrollwheel=$mapScrollWheel&fblike=$fbLike&fbcomment=$fbComment&showfavorites=$showFavorites&techemail=$techEmail&agent=$agent";
+			$response = wp_remote_get($url);
+			if( is_wp_error( $response ) ) {
+			   return 'Oops, something went wrong with the Nearby Now plugin';
+			} else {
+			   return $response['body'];
+			}
+		}
+
+		static function get_testimonials($atts) {  
+			self::$add_scripts = true;
+			$agent = urlencode($_SERVER['HTTP_USER_AGENT']);
+			$start = $atts['start'];
+			$count = $atts['count'];
+			$playlist = $atts['playlist'];
+			$showTranscription = $atts['showtranscription'];
+			$options = get_option('nearbynow_options');
+			$apitoken = $options['text_string'];
+			$token = trim($apitoken);
+			$url = "http://api.sidebox.com/plugin/testimonials?storefronttoken=$token&start=$start&count=$count&playlist=$playlist&showtranscription=$showTranscription&agent=$agent";
+			$response = wp_remote_get($url);
+			if( is_wp_error( $response ) ) {
+			   return 'Oops, something went wrong with the Nearby Now Testimonial plugin';
+			} else {
+			   return $response['body'];
+			}
+		}
+
+		static function register_scripts() {
+			//$gmaps_is_registered = wp_script_is('googlemaps', 'registered');
+			//$gmaps_is_queued = wp_script_is('googlemaps', 'queue');
+
+			wp_register_style( 'nearbynow_css', 'https://s3.amazonaws.com/cdn.nearbynow.co/css/nnplugin.css' );
+	    wp_register_script( 'nearbynow_map', 'http://maps.google.com/maps/api/js?sensor=false', null, null, true);
+	    wp_register_script( 'nearbynow_heatmap', 'https://s3.amazonaws.com/cdn.nearbynow.co/scripts/heatmap.js', null, null, true);
+	    wp_register_script( 'nearbynow_heatmap_gmaps', 'https://s3.amazonaws.com/cdn.nearbynow.co/scripts/heatmap-gmaps.js', array('nearbynow_heatmap') , null, true);
+		}
+
+		static function render_scripts() {
+			if ( ! self::$add_scripts )
+				return;
+
+			wp_print_styles('nearbynow_css');
+			wp_print_scripts('nearbynow_map');
+			wp_print_scripts('nearbynow_heatmap');
+			wp_print_scripts('nearbynow_heatmap_gmaps');
+		}
+
 	}
 
-	function get_service_area_map($atts) {  
-		$agent = urlencode($_SERVER['HTTP_USER_AGENT']);
-		$state = urlencode($atts['state']);
-		$city = urlencode($atts['city']);
-		$radius = $atts['radius'];
-		$showMap = $atts['showmap'];
-		$showFavorites = $atts['showfavorites'];
-		$start = $atts['start'];
-		$count = $atts['count'];
-		$zoom = $atts['zoomlevel'];
-		$mapScrollWheel = $atts['mapscrollwheel'];
-		$fbLike = $atts['fblike'];
-		$fbcomment = $atts['fbcomment'];
-		$options = get_option('nearbynow_options');
-		$apitoken = $options['text_string'];
-		$token = trim($apitoken);
-		$url = "http://api.sidebox.com/plugin/nearbyservicearea?storefronttoken=$token&state=$state&city=$city&zoomlevel=$zoom&radius=$radius&count=$count&showmap=$showMap&showfavorites=$showFavorites&mapscrollwheel=$mapScrollWheel&fblike=$fbLike&fbcomment=$fbComment&agent=$agent";
-		$response = wp_remote_get($url);
-		if( is_wp_error( $response ) ) {
-		   return 'Oops, something went wrong with the Nearby Now plugin';
-		} else {
-		   return $response['body'];
-		}
-	}
-	
-	function get_service_area_review_combo_map($atts) {  
-		$agent = urlencode($_SERVER['HTTP_USER_AGENT']);
-		$state = urlencode($atts['state']);
-		$city = urlencode($atts['city']);
-		$radius = $atts['radius'];
-		$showMap = $atts['showmap'];
-		$showFavorites = $atts['showfavorites'];
-		$techEmail = $atts['techemail'];
-		$reviewStart = $atts['reviewstart'];
-		$checkinStart = $atts['checkinstart'];
-		$reviewCount = $atts['reviewcount'];
-		$checkinCount = $atts['checkincount'];
-		$zoom = $atts['zoomlevel'];
-		$reviewCityUrl = urlencode($atts['reviewcityurl']);
-		$mapSize = $atts['mapsize'];
-		$mapScrollWheel = $atts['mapscrollwheel'];
-		$fbLike = $atts['fblike'];
-		$fbcomment = $atts['fbcomment'];
-		$options = get_option('nearbynow_options');
-		$apitoken = $options['text_string'];
-		$token = trim($apitoken);
-		$url = "http://api.sidebox.com/plugin/nearbyserviceareareviewcombo?storefronttoken=$token&state=$state&city=$city&zoomlevel=$zoom&radius=$radius&reviewcityurl=$reviewCityUrl&reviewstart=$reviewStart&checkinstart=$checkinStart&reviewcount=$reviewCount&checkincount=$checkinCount&showmap=$showMap&mapsize=$mapSize&mapscrollwheel=$mapScrollWheel&fblike=$fbLike&fbcomment=$fbComment&showfavorites=$showFavorites&techemail=$techEmail&agent=$agent";
-		$response = wp_remote_get($url);
-		if( is_wp_error( $response ) ) {
-		   return 'Oops, something went wrong with the Nearby Now plugin';
-		} else {
-		   return $response['body'];
-		}
-	}
-
-	function get_testimonials($atts) {  
-		$agent = urlencode($_SERVER['HTTP_USER_AGENT']);
-		$start = $atts['start'];
-		$count = $atts['count'];
-		$playlist = $atts['playlist'];
-		$showTranscription = $atts['showtranscription'];
-		$options = get_option('nearbynow_options');
-		$apitoken = $options['text_string'];
-		$token = trim($apitoken);
-		$url = "http://api.sidebox.com/plugin/testimonials?storefronttoken=$token&start=$start&count=$count&playlist=$playlist&showtranscription=$showTranscription&agent=$agent";
-		$response = wp_remote_get($url);
-		if( is_wp_error( $response ) ) {
-		   return 'Oops, something went wrong with the Nearby Now Testimonial plugin';
-		} else {
-		   return $response['body'];
-		}
-	}
+	NearbyNow_ShortCode::init();
 
 	function nearbynow_admin() {  
 	  $opt_name = array('api_token' => 'nbn_api_token');
@@ -145,23 +159,22 @@
 	}
 
 	function nearbynow_admin_actions() {  
-	    add_options_page("NearbyNow", "NearbyNow", 1, "NearbyNow", "nearbynow_options_page");  
+    add_options_page("Nearby Now", "Nearby Now", 1, "NearbyNow", "nearbynow_options_page");  
 	}
 	  
 	add_action('admin_menu', 'nearbynow_admin_actions');
-
-function nearbynow_options_page() { ?>
-	<div>
-		<form action="options.php" method="post">
-			<?php settings_fields('nearbynow_options'); ?>
-			<?php do_settings_sections('nearbynow'); ?>
-			<input name="Submit" type="submit" value="<?php esc_attr_e('Save Token'); ?>" />
-		</form>
-	</div>
-<?php
-} 
-
 	add_action('admin_init', 'nearbynow_admin_init');
+
+	function nearbynow_options_page() { ?>
+		<div>
+			<form action="options.php" method="post">
+				<?php settings_fields('nearbynow_options'); ?>
+				<?php do_settings_sections('nearbynow'); ?>
+				<input name="Submit" type="submit" value="<?php esc_attr_e('Save Token'); ?>" />
+			</form>
+		</div>
+	<?php
+	} 
 
 	function nearbynow_admin_init() {
 		register_setting( 'nearbynow_options', 'nearbynow_options', 'nearbynow_options_validate' );
@@ -181,4 +194,5 @@ function nearbynow_options_page() { ?>
 	function nearbynow_options_validate($input) {
 		return $input;
 	}
+
 ?>
