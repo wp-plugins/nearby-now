@@ -3,7 +3,7 @@
 	Plugin Name: Nearby Now Reviews and Audio Testimonials
 	Plugin URI: http://servicepros.nearbynow.co/plugins/wordpress-plugins/
 	Description: Nearby Now - Recent Reviews, Service Area Plugin and Audio Testimonials.
-	Version: 1.3.5
+	Version: 1.4.0
 	Author: Nearby Now
 	Author URI: http://www.nearbynow.co
 	*/
@@ -16,6 +16,7 @@
 			add_shortcode('serviceareamap', array(__CLASS__, 'get_service_area_map'));
 			add_shortcode('serviceareareviewcombo', array(__CLASS__, 'get_service_area_review_combo_map'));
 			add_shortcode('nearbynowtestimonials', array(__CLASS__, 'get_testimonials'));
+			add_shortcode('nearbynowphotogallery', array(__CLASS__, 'get_photogallery'));
 
 			add_action('init', array(__CLASS__, 'register_scripts'));
 			add_action('wp_footer', array(__CLASS__, 'render_scripts'));
@@ -121,6 +122,23 @@
 			$response = wp_remote_get($url);
 			if( is_wp_error( $response ) ) {
 			   return 'Oops, something went wrong with the Nearby Now Testimonial plugin';
+			} else {
+			   return $response['body'];
+			}
+		}
+
+		static function get_photogallery($atts) {  
+			self::$add_scripts = true;
+			$agent = urlencode($_SERVER['HTTP_USER_AGENT']);
+			$start = $atts['start'];
+			$count = $atts['count'];
+			$options = get_option('nearbynow_options');
+			$apitoken = $options['text_string'];
+			$token = trim($apitoken);
+			$url = "http://api.sidebox.com/plugin/photogallery?storefronttoken=$token&start=$start&count=$count&agent=$agent";
+			$response = wp_remote_get($url);
+			if( is_wp_error( $response ) ) {
+			   return 'Oops, something went wrong with the Nearby Now Photo Gallery Plugin';
 			} else {
 			   return $response['body'];
 			}
