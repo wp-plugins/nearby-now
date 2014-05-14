@@ -2,8 +2,8 @@
 Contributors: azcoov
 Tags: location, reviews, check-ins, servicepro
 Requires at least: 2.0.2
-Tested up to: 3.7.1
-Stable tag: 1.3.2
+Tested up to: 3.9
+Stable tag: 1.4.3
 
 The Nearby Now Plugin allows you to display your good customer reviews, check-in locations and photos, and a service area heat-map on any blog post or web page via a short code. We've also introduced [Audio Testimonials](http://servicepros.nearbynow.co/introducing-audio-testimonials/), a simple way to display an audio playlist of your great customer feedback.
 
@@ -103,7 +103,7 @@ The Review and Service-Area based plugins can be configured to display a certain
 The Nearby Now plugins for Wordpress help your SEO in two ways:
 
 - You can create a web page for each city you service with unique reviews and checkins. Google and other search engines prefer that your website has unique content per page. Duplicate and static content is much less valuable, and Nearby Now is a great way to build that unique dynamic content and plug it into your site.
-- The data that is published by the Nearby Now plugin is coded in optimized micro-formats. This helps search engines recognize the value of the reviews and check-ins being published.	
+- The data that is published by the Nearby Now plugin is coded in optimized micro-formats. This helps search engines recognize the value of the reviews and check-ins being published.
 
 If you have any questions or need any assistance with the plugins, you can email us at `support@nearbynow.co`.
 
@@ -134,6 +134,29 @@ Login to admin.nearbynow.co and click the WordPress tab to get your API Access T
 3. Example of the audio testimonials plugin and audio player
 
 == Changelog ==
+= 1.4.3 =
+* Adjustment to the API endpoint
+
+= 1.4.2 =
+* API Modifications
+
+= 1.4.1 =
+* Version Bump for WP 3.9
+
+= 1.4.0 =
+* New Photo Gallery Plugin
+
+= 1.3.5 =
+* Improved Script Loading
+* Scripts are now loaded in the footer
+* Both scripts & styles are only loaded on pages that have the Nearby Now short-code
+
+= 1.3.4 =
+* WordPress compatibility version bump to 3.8
+
+= 1.3.3 =
+* Fix for Review City URL's
+
 = 1.3.2 =
 * Trimming all whitespace on the API key which fix some 400 erros; common when copy/pasting the API key from email or the web
 
@@ -167,4 +190,4 @@ Show Favorites allows you to display only reviews that you've specifically marke
 * Version 1.0.1 fixes a bug in the order that the plugin content is rendered to the browser
 
 = 1.0 =
-* Version 1.0 released! 
+* Version 1.0 released!
