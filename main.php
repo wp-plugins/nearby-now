@@ -40,10 +40,10 @@
 			$options = get_option('nearbynow_options');
 			$apitoken = $options['text_string'];
 			$token = trim($apitoken);
-			$url = "http://elbtest.sidebox.com/plugin/nearbyreviews?storefronttoken=$token&state=$state&city=$city&zoomlevel=$zoom&radius=$radius&count=$count&showmap=$showMap&showfavorites=$showFavorites&mapscrollwheel=$mapScrollWheel&fblike=$fbLike&fbcomment=$fbComment&agent=$agent";
+			$url = "http://api.sidebox.com/plugin/nearbyreviews?storefronttoken=$token&state=$state&city=$city&zoomlevel=$zoom&radius=$radius&count=$count&showmap=$showMap&showfavorites=$showFavorites&mapscrollwheel=$mapScrollWheel&fblike=$fbLike&fbcomment=$fbComment&agent=$agent";
 			$response = wp_remote_get($url);
 			if( is_wp_error( $response ) ) {
-			   return 'Oops, something went wrong with the Nearby Now plugin';
+			   return 'Oops, something went wrong with the plugin';
 			} else {
 			   return $response['body'];
 			}
@@ -66,10 +66,10 @@
 			$options = get_option('nearbynow_options');
 			$apitoken = $options['text_string'];
 			$token = trim($apitoken);
-			$url = "http://elbtest.sidebox.com/plugin/nearbyservicearea?storefronttoken=$token&state=$state&city=$city&zoomlevel=$zoom&radius=$radius&count=$count&showmap=$showMap&showfavorites=$showFavorites&mapscrollwheel=$mapScrollWheel&fblike=$fbLike&fbcomment=$fbComment&agent=$agent";
+			$url = "http://api.sidebox.com/plugin/nearbyservicearea?storefronttoken=$token&state=$state&city=$city&zoomlevel=$zoom&radius=$radius&count=$count&showmap=$showMap&showfavorites=$showFavorites&mapscrollwheel=$mapScrollWheel&fblike=$fbLike&fbcomment=$fbComment&agent=$agent";
 			$response = wp_remote_get($url);
 			if( is_wp_error( $response ) ) {
-			   return 'Oops, something went wrong with the Nearby Now plugin';
+			   return 'Oops, something went wrong with the plugin';
 			} else {
 			   return $response['body'];
 			}
@@ -83,7 +83,9 @@
 			$radius = $atts['radius'];
 			$showMap = $atts['showmap'];
 			$showFavorites = $atts['showfavorites'];
-			$techEmail = $atts['techemail'];
+			if (trim($atts['techemail'])) {
+			  $techEmail = urlencode($atts['techemail']);
+			}
 			$reviewStart = $atts['reviewstart'];
 			$checkinStart = $atts['checkinstart'];
 			$reviewCount = $atts['reviewcount'];
@@ -99,10 +101,10 @@
 			$options = get_option('nearbynow_options');
 			$apitoken = $options['text_string'];
 			$token = trim($apitoken);
-			$url = "http://elbtest.sidebox.com/plugin/nearbyserviceareareviewcombo?storefronttoken=$token&state=$state&city=$city&zoomlevel=$zoom&radius=$radius&reviewcityurl=$reviewCityUrl&reviewstart=$reviewStart&checkinstart=$checkinStart&reviewcount=$reviewCount&checkincount=$checkinCount&showmap=$showMap&mapsize=$mapSize&mapscrollwheel=$mapScrollWheel&fblike=$fbLike&fbcomment=$fbComment&showfavorites=$showFavorites&techemail=$techEmail&agent=$agent";
+			$url = "http://api.sidebox.com/plugin/nearbyserviceareareviewcombo?storefronttoken=$token&state=$state&city=$city&zoomlevel=$zoom&radius=$radius&reviewcityurl=$reviewCityUrl&reviewstart=$reviewStart&checkinstart=$checkinStart&reviewcount=$reviewCount&checkincount=$checkinCount&showmap=$showMap&mapsize=$mapSize&mapscrollwheel=$mapScrollWheel&fblike=$fbLike&fbcomment=$fbComment&showfavorites=$showFavorites&techemail=$techEmail&agent=$agent";
 			$response = wp_remote_get($url);
 			if( is_wp_error( $response ) ) {
-			   return 'Oops, something went wrong with the Nearby Now plugin';
+			   return 'Oops, something went wrong with the plugin';
 			} else {
 			   return $response['body'];
 			}
@@ -118,10 +120,10 @@
 			$options = get_option('nearbynow_options');
 			$apitoken = $options['text_string'];
 			$token = trim($apitoken);
-			$url = "http://elbtest.sidebox.com/plugin/testimonials?storefronttoken=$token&start=$start&count=$count&playlist=$playlist&showtranscription=$showTranscription&agent=$agent";
+			$url = "http://api.sidebox.com/plugin/testimonials?storefronttoken=$token&start=$start&count=$count&playlist=$playlist&showtranscription=$showTranscription&agent=$agent";
 			$response = wp_remote_get($url);
 			if( is_wp_error( $response ) ) {
-			   return 'Oops, something went wrong with the Nearby Now Testimonial plugin';
+			   return 'Oops, something went wrong with the testimonial plugin';
 			} else {
 			   return $response['body'];
 			}
@@ -135,10 +137,10 @@
 			$options = get_option('nearbynow_options');
 			$apitoken = $options['text_string'];
 			$token = trim($apitoken);
-			$url = "http://elbtest.sidebox.com/plugin/photogallery?storefronttoken=$token&start=$start&count=$count&agent=$agent";
+			$url = "http://api.sidebox.com/plugin/photogallery?storefronttoken=$token&start=$start&count=$count&agent=$agent";
 			$response = wp_remote_get($url);
 			if( is_wp_error( $response ) ) {
-			   return 'Oops, something went wrong with the Nearby Now Photo Gallery Plugin';
+			   return 'Oops, something went wrong with the Photo Gallery Plugin';
 			} else {
 			   return $response['body'];
 			}
