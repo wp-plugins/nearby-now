@@ -3,7 +3,7 @@
 	Plugin Name: Nearby Now Reviews and Audio Testimonials
 	Plugin URI: http://servicepros.nearbynow.co/plugins/wordpress-plugins/
 	Description: Nearby Now - Recent Reviews, Service Area Plugin and Audio Testimonials.
-	Version: 1.4.5
+	Version: 1.5.0
 	Author: Nearby Now
 	Author URI: http://www.nearbynow.co
 	*/
@@ -99,21 +99,21 @@
 			self::$add_scripts = true;
 
 			$agent = urlencode($_SERVER['HTTP_USER_AGENT']);
-			$state = urlencode($atts['state']);
-			$city = urlencode($atts['city']);
-			$radius = $atts['radius'];
-			$showMap = $atts['showmap'];
-			$showFavorites = $atts['showfavorites'];
-			$start = $atts['start'];
-			$count = $atts['count'];
-			$zoom = $atts['zoomlevel'];
-			$mapScrollWheel = $atts['mapscrollwheel'];
-			$fbLike = $atts['fblike'];
-			$fbcomment = $atts['fbcomment'];
+			$state = isset($atts['state']) ? urlencode($atts['state']) : '';
+			$city = isset($atts['city']) ? urlencode($atts['city']) : '';
+			$radius = isset($atts['radius']) ? $atts['radius'] : '';
+			$showMap = isset($atts['showmap']) ? $atts['showmap'] : '';
+			$showFavorites = isset($atts['showfavorites']) ? $atts['showfavorites'] : '';
+			$start = isset($atts['start']) ? $atts['start'] : '';
+			$count = isset($atts['count']) ? $atts['count'] : '';
+			$zoom = isset($atts['zoomlevel']) ? $atts['zoomlevel'] : '';
+			$mapScrollWheel = isset($atts['mapscrollwheel']) ? $atts['mapscrollwheel'] : '';
+			$fbLike = isset($atts['fblike']) ? $atts['fblike'] : '';
+			$fbcomment = isset($atts['fbcomment']) ? $atts['fbcomment'] : '';
 			$options = get_option('nearbynow_options');
 			$apitoken = $options['text_string'];
 			$token = trim($apitoken);
-			$url = "http://api.sidebox.com/plugin/nearbyreviews?storefronttoken=$token&state=$state&city=$city&zoomlevel=$zoom&radius=$radius&count=$count&showmap=$showMap&showfavorites=$showFavorites&mapscrollwheel=$mapScrollWheel&fblike=$fbLike&fbcomment=$fbComment&agent=$agent";
+			$url = "http://api.sidebox.com/plugin/nearbyreviews?storefronttoken=$token&state=$state&city=$city&zoomlevel=$zoom&radius=$radius&count=$count&showmap=$showMap&showfavorites=$showFavorites&mapscrollwheel=$mapScrollWheel&fblike=$fbLike&fbcomment=$fbcomment&agent=$agent";
 			$response = wp_remote_get($url, array( 'timeout' => 15));
 			if( is_wp_error( $response ) ) {
 			   return '';
@@ -125,21 +125,21 @@
 		static function get_service_area_map($atts) {
 			self::$add_scripts = true;
 			$agent = urlencode($_SERVER['HTTP_USER_AGENT']);
-			$state = urlencode($atts['state']);
-			$city = urlencode($atts['city']);
-			$radius = $atts['radius'];
-			$showMap = $atts['showmap'];
-			$showFavorites = $atts['showfavorites'];
-			$start = $atts['start'];
-			$count = $atts['count'];
-			$zoom = $atts['zoomlevel'];
-			$mapScrollWheel = $atts['mapscrollwheel'];
-			$fbLike = $atts['fblike'];
-			$fbcomment = $atts['fbcomment'];
+			$state = isset($atts['state']) ? urlencode($atts['state']) : '';
+			$city = isset($atts['city']) ? urlencode($atts['city']) : '';
+			$radius = isset($atts['radius']) ? $atts['radius'] : '';
+			$showMap = isset($atts['showmap']) ? $atts['showmap'] : '';
+			$showFavorites = isset($atts['showfavorites']) ? $atts['showfavorites'] : '';
+			$start = isset($atts['start']) ? $atts['start'] : '';
+			$count = isset($atts['count']) ? $atts['count'] : '';
+			$zoom = isset($atts['zoomlevel']) ? $atts['zoomlevel'] : '';
+			$mapScrollWheel = isset($atts['mapscrollwheel']) ? $atts['mapscrollwheel'] : '';
+			$fbLike = isset($atts['fblike']) ? $atts['fblike'] : '';
+			$fbcomment = isset($atts['fbcomment']) ? $atts['fbcomment'] : '';
 			$options = get_option('nearbynow_options');
 			$apitoken = $options['text_string'];
 			$token = trim($apitoken);
-			$url = "http://api.sidebox.com/plugin/nearbyservicearea?storefronttoken=$token&state=$state&city=$city&zoomlevel=$zoom&radius=$radius&count=$count&showmap=$showMap&showfavorites=$showFavorites&mapscrollwheel=$mapScrollWheel&fblike=$fbLike&fbcomment=$fbComment&agent=$agent";
+			$url = "http://api.sidebox.com/plugin/nearbyservicearea?storefronttoken=$token&state=$state&city=$city&zoomlevel=$zoom&radius=$radius&count=$count&showmap=$showMap&showfavorites=$showFavorites&mapscrollwheel=$mapScrollWheel&fblike=$fbLike&fbcomment=$fbcomment&agent=$agent";
 			$response = wp_remote_get($url, array( 'timeout' => 15));
 			if( is_wp_error( $response ) ) {
 			   return '';
@@ -151,35 +151,35 @@
 		static function get_service_area_review_combo_map($atts) {
 			self::$add_scripts = true;
 			$agent = urlencode($_SERVER['HTTP_USER_AGENT']);
-			$state = urlencode($atts['state']);
-			$city = urlencode($atts['city']);
-			$radius = $atts['radius'];
-			$showMap = $atts['showmap'];
-			$showFavorites = $atts['showfavorites'];
-			if (trim($atts['techemail'])) {
-			  $techEmail = urlencode($atts['techemail']);
+			$state = isset($atts['state']) ? urlencode($atts['state']) : '';
+			$city = isset($atts['city']) ? urlencode($atts['city']) : '';
+			$radius = isset($atts['radius']) ? $atts['radius'] : '';
+			$showMap = isset($atts['showmap']) ? $atts['showmap'] : '';
+			$showFavorites = isset($atts['showfavorites']) ? $atts['showfavorites'] : '';
+			$techEmail = null;
+			if (isset($atts['techemail'])) {
+				$techEmail = urlencode(trim($atts['techemail']));
 			}
-			$reviewStart = $atts['reviewstart'];
-			$checkinStart = $atts['checkinstart'];
-			$reviewCount = $atts['reviewcount'];
-			$checkinCount = $atts['checkincount'];
-			$zoom = $atts['zoomlevel'];
-			if (trim($atts['reviewcityurl'])) {
-				$reviewCityUrl = urlencode(str_replace('\"', '', $atts['reviewcityurl']));
+			$reviewStart = isset($atts['reviewstart']) ? $atts['reviewstart'] : '';
+			$checkinStart = isset($atts['checkinstart']) ? $atts['checkinstart'] : '';
+			$reviewCount = isset($atts['reviewcount']) ? $atts['reviewcount'] : '';
+			$checkinCount = isset($atts['checkincount']) ? $atts['checkincount'] : '';
+			$zoom = isset($atts['zoomlevel']) ? $atts['zoomlevel'] : '';
+			$reviewCityUrl = null;
+			if (isset($atts['reviewcityurl'])) {
+				$reviewCityUrl = urlencode(str_replace('\"', '', trim($atts['reviewcityurl'])));
 			}
-			$mapSize = $atts['mapsize'];
-			$mapScrollWheel = $atts['mapscrollwheel'];
-			$fbLike = $atts['fblike'];
-			$fbcomment = $atts['fbcomment'];
+			$mapSize = isset($atts['mapsize']) ? $atts['mapsize'] : '';
+			$mapScrollWheel = isset($atts['mapscrollwheel']) ? $atts['mapscrollwheel'] : '';
+			$fbLike = isset($atts['fblike']) ? $atts['fblike'] : '';
+			$fbcomment = isset($atts['fbcomment']) ? $atts['fbcomment'] : '';
 			$options = get_option('nearbynow_options');
 			$apitoken = $options['text_string'];
 			$token = trim($apitoken);
-			$url = "http://api.sidebox.com/plugin/nearbyserviceareareviewcombo?storefronttoken=$token&state=$state&city=$city&zoomlevel=$zoom&radius=$radius&reviewcityurl=$reviewCityUrl&reviewstart=$reviewStart&checkinstart=$checkinStart&reviewcount=$reviewCount&checkincount=$checkinCount&showmap=$showMap&mapsize=$mapSize&mapscrollwheel=$mapScrollWheel&fblike=$fbLike&fbcomment=$fbComment&showfavorites=$showFavorites&techemail=$techEmail&agent=$agent";
+			$url = "http://api.sidebox.com/plugin/nearbyserviceareareviewcombo?storefronttoken=$token&state=$state&city=$city&zoomlevel=$zoom&radius=$radius&reviewcityurl=$reviewCityUrl&reviewstart=$reviewStart&checkinstart=$checkinStart&reviewcount=$reviewCount&checkincount=$checkinCount&showmap=$showMap&mapsize=$mapSize&mapscrollwheel=$mapScrollWheel&fblike=$fbLike&fbcomment=$fbcomment&showfavorites=$showFavorites&techemail=$techEmail&agent=$agent";
 			$response = wp_remote_get($url, array( 'timeout' => 15));
 			if( is_wp_error( $response ) ) {
 			   return '';
-				//$error_string = $response->get_error_message();
-				//return $error_string;
 			} else {
 			   return $response['body'];
 			}
@@ -188,10 +188,10 @@
 		static function get_testimonials($atts) {
 			self::$add_scripts = true;
 			$agent = urlencode($_SERVER['HTTP_USER_AGENT']);
-			$start = $atts['start'];
-			$count = $atts['count'];
-			$playlist = $atts['playlist'];
-			$showTranscription = $atts['showtranscription'];
+			$start = isset($atts['start']) ? $atts['start'] : '';
+			$count = isset($atts['count']) ? $atts['count'] : '';
+			$playlist = isset($atts['playlist']) ? $atts['playlist'] : '';
+			$showTranscription = isset($atts['showtranscription']) ? $atts['showtranscription'] : '';
 			$options = get_option('nearbynow_options');
 			$apitoken = $options['text_string'];
 			$token = trim($apitoken);
@@ -207,8 +207,8 @@
 		static function get_photogallery($atts) {
 			self::$add_scripts = true;
 			$agent = urlencode($_SERVER['HTTP_USER_AGENT']);
-			$start = $atts['start'];
-			$count = $atts['count'];
+			$start = isset($atts['start']) ? $atts['start'] : '';
+			$count = isset($atts['count']) ? $atts['count'] : '';
 			$options = get_option('nearbynow_options');
 			$apitoken = $options['text_string'];
 			$token = trim($apitoken);
