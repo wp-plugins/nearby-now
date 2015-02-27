@@ -3,7 +3,7 @@
 	Plugin Name: Nearby Now Reviews and Audio Testimonials
 	Plugin URI: http://servicepros.nearbynow.co/plugins/wordpress-plugins/
 	Description: Nearby Now - Recent Reviews, Service Area Plugin and Audio Testimonials.
-	Version: 1.6.0
+	Version: 1.7.0
 	Author: Nearby Now
 	Author URI: http://www.nearbynow.co
 	*/
@@ -199,14 +199,9 @@
 
 		static function register_scripts() {
 			$options = get_option('nearbynow_options');
-			//wp_register_style( 'nearbynow_css', 'https://s3.amazonaws.com/cdn.nearbynow.co/css/nnplugin.css' );
-			wp_register_style( 'nearbynow_css', 'https://d6at0twdth9j2.cloudfront.net/css/plugin.min.css' );
+			wp_register_style( 'nearbynow_css', 'https://d2gwjd5chbpgug.cloudfront.net/v2/css/plugin.min.css' );
 
-			if ($options["disable_google_maps"] == null || $options["disable_google_maps"] == false)
-	   			wp_register_script( 'nearbynow_map', 'https://maps.google.com/maps/api/js?sensor=false', null, null, true);
-
-	   		wp_register_script( 'nearbynow_heatmap', 'https://s3.amazonaws.com/cdn.nearbynow.co/scripts/heatmap.js', null, null, true);
-	    	wp_register_script( 'nearbynow_heatmap_gmaps', 'https://s3.amazonaws.com/cdn.nearbynow.co/scripts/heatmap-gmaps.js', array('nearbynow_heatmap') , null, true);
+	   		wp_register_script( 'nearbynow_heatmap', 'https://d2gwjd5chbpgug.cloudfront.net/v2/scripts/heatmap.js', null, null, true);
 		}
 
 		static function render_scripts() {
@@ -214,9 +209,7 @@
 				return;
 
 			wp_print_styles('nearbynow_css');
-			wp_print_scripts('nearbynow_map');
 			wp_print_scripts('nearbynow_heatmap');
-			wp_print_scripts('nearbynow_heatmap_gmaps');
 		}
 
 		static function ApiLocation() {
@@ -364,13 +357,13 @@
 			'nearbynow_main'
 		);
 
-		add_settings_field(
-			'disable_google_maps',
-			'Disable Google Map Services',
-			'nearbynow_google_maps_toggle',
-			'nearbynow',
-			'nearbynow_main'
-		);
+		// add_settings_field(
+			// 'disable_google_maps',
+			// 'Disable Google Map Services',
+			// 'nearbynow_google_maps_toggle',
+			// 'nearbynow',
+			// 'nearbynow_main'
+		// );
 
 		//add_settings_field('nearbynow_open_graph_string', 'Exclude Open Graph Headers', 'nearbynow_open_graph_string', 'nearbynow', 'nearbynow_main');
 	}
