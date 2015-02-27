@@ -3,10 +3,11 @@
 	Plugin Name: Nearby Now Reviews and Audio Testimonials
 	Plugin URI: http://servicepros.nearbynow.co/plugins/wordpress-plugins/
 	Description: Nearby Now - Recent Reviews, Service Area Plugin and Audio Testimonials.
-	Version: 1.5.0
+	Version: 1.7.0
 	Author: Nearby Now
 	Author URI: http://www.nearbynow.co
 	*/
+
 
 	class NearbyNow_ShortCode {
 		static $add_scripts;
@@ -65,7 +66,7 @@
 				$options = get_option('nearbynow_options');
 				$apitoken = $options['text_string'];
 				$token = trim($apitoken);
-				$url = "http://api.sidebox.com/plugin/usercheckin?storefronttoken=$token&id=$id&agent=$agent";
+				$url = self::ApiLocation() . "usercheckin?storefronttoken=$token&id=$id&agent=$agent";
 				$request = wp_remote_get($url, array( 'timeout' => 15));
 				$body = wp_remote_retrieve_body( $request );
 				if( is_wp_error( $request ) ) {
@@ -84,7 +85,7 @@
 				$options = get_option('nearbynow_options');
 				$apitoken = $options['text_string'];
 				$token = trim($apitoken);
-				$url = "http://api.sidebox.com/plugin/survey?storefronttoken=$token&id=$id&agent=$agent";
+				$url = self::ApiLocation() . "survey?storefronttoken=$token&id=$id&agent=$agent";
 				$request = wp_remote_get($url, array( 'timeout' => 15));
 				$body = wp_remote_retrieve_body( $request );
 				if( is_wp_error( $request ) ) {
@@ -98,23 +99,13 @@
 		static function get_recent_reviews($atts) {
 			self::$add_scripts = true;
 
-			$agent = urlencode($_SERVER['HTTP_USER_AGENT']);
-			$state = isset($atts['state']) ? urlencode($atts['state']) : '';
-			$city = isset($atts['city']) ? urlencode($atts['city']) : '';
-			$radius = isset($atts['radius']) ? $atts['radius'] : '';
-			$showMap = isset($atts['showmap']) ? $atts['showmap'] : '';
-			$showFavorites = isset($atts['showfavorites']) ? $atts['showfavorites'] : '';
-			$start = isset($atts['start']) ? $atts['start'] : '';
-			$count = isset($atts['count']) ? $atts['count'] : '';
-			$zoom = isset($atts['zoomlevel']) ? $atts['zoomlevel'] : '';
-			$mapScrollWheel = isset($atts['mapscrollwheel']) ? $atts['mapscrollwheel'] : '';
-			$fbLike = isset($atts['fblike']) ? $atts['fblike'] : '';
-			$fbcomment = isset($atts['fbcomment']) ? $atts['fbcomment'] : '';
-			$options = get_option('nearbynow_options');
-			$apitoken = $options['text_string'];
-			$token = trim($apitoken);
-			$url = "http://api.sidebox.com/plugin/nearbyreviews?storefronttoken=$token&state=$state&city=$city&zoomlevel=$zoom&radius=$radius&count=$count&showmap=$showMap&showfavorites=$showFavorites&mapscrollwheel=$mapScrollWheel&fblike=$fbLike&fbcomment=$fbcomment&agent=$agent";
-			$response = wp_remote_get($url, array( 'timeout' => 15));
+			$url = self::ApiLocation() . "nearbyreviews";
+			$args = array(
+				'method' => 'POST',
+				'body' => self::get_pluginparams($atts),
+				'timeout' => 15
+			);
+			$response = wp_remote_post($url, $args);
 			if( is_wp_error( $response ) ) {
 			   return '';
 			} else {
@@ -124,23 +115,14 @@
 
 		static function get_service_area_map($atts) {
 			self::$add_scripts = true;
-			$agent = urlencode($_SERVER['HTTP_USER_AGENT']);
-			$state = isset($atts['state']) ? urlencode($atts['state']) : '';
-			$city = isset($atts['city']) ? urlencode($atts['city']) : '';
-			$radius = isset($atts['radius']) ? $atts['radius'] : '';
-			$showMap = isset($atts['showmap']) ? $atts['showmap'] : '';
-			$showFavorites = isset($atts['showfavorites']) ? $atts['showfavorites'] : '';
-			$start = isset($atts['start']) ? $atts['start'] : '';
-			$count = isset($atts['count']) ? $atts['count'] : '';
-			$zoom = isset($atts['zoomlevel']) ? $atts['zoomlevel'] : '';
-			$mapScrollWheel = isset($atts['mapscrollwheel']) ? $atts['mapscrollwheel'] : '';
-			$fbLike = isset($atts['fblike']) ? $atts['fblike'] : '';
-			$fbcomment = isset($atts['fbcomment']) ? $atts['fbcomment'] : '';
-			$options = get_option('nearbynow_options');
-			$apitoken = $options['text_string'];
-			$token = trim($apitoken);
-			$url = "http://api.sidebox.com/plugin/nearbyservicearea?storefronttoken=$token&state=$state&city=$city&zoomlevel=$zoom&radius=$radius&count=$count&showmap=$showMap&showfavorites=$showFavorites&mapscrollwheel=$mapScrollWheel&fblike=$fbLike&fbcomment=$fbcomment&agent=$agent";
-			$response = wp_remote_get($url, array( 'timeout' => 15));
+
+			$url = self::ApiLocation() . "nearbyservicearea";
+			$args = array(
+				'method' => 'POST',
+				'body' => self::get_pluginparams($atts),
+				'timeout' => 15
+			);
+			$response = wp_remote_post($url, $args);
 			if( is_wp_error( $response ) ) {
 			   return '';
 			} else {
@@ -150,34 +132,14 @@
 
 		static function get_service_area_review_combo_map($atts) {
 			self::$add_scripts = true;
-			$agent = urlencode($_SERVER['HTTP_USER_AGENT']);
-			$state = isset($atts['state']) ? urlencode($atts['state']) : '';
-			$city = isset($atts['city']) ? urlencode($atts['city']) : '';
-			$radius = isset($atts['radius']) ? $atts['radius'] : '';
-			$showMap = isset($atts['showmap']) ? $atts['showmap'] : '';
-			$showFavorites = isset($atts['showfavorites']) ? $atts['showfavorites'] : '';
-			$techEmail = null;
-			if (isset($atts['techemail'])) {
-				$techEmail = urlencode(trim($atts['techemail']));
-			}
-			$reviewStart = isset($atts['reviewstart']) ? $atts['reviewstart'] : '';
-			$checkinStart = isset($atts['checkinstart']) ? $atts['checkinstart'] : '';
-			$reviewCount = isset($atts['reviewcount']) ? $atts['reviewcount'] : '';
-			$checkinCount = isset($atts['checkincount']) ? $atts['checkincount'] : '';
-			$zoom = isset($atts['zoomlevel']) ? $atts['zoomlevel'] : '';
-			$reviewCityUrl = null;
-			if (isset($atts['reviewcityurl'])) {
-				$reviewCityUrl = urlencode(str_replace('\"', '', trim($atts['reviewcityurl'])));
-			}
-			$mapSize = isset($atts['mapsize']) ? $atts['mapsize'] : '';
-			$mapScrollWheel = isset($atts['mapscrollwheel']) ? $atts['mapscrollwheel'] : '';
-			$fbLike = isset($atts['fblike']) ? $atts['fblike'] : '';
-			$fbcomment = isset($atts['fbcomment']) ? $atts['fbcomment'] : '';
-			$options = get_option('nearbynow_options');
-			$apitoken = $options['text_string'];
-			$token = trim($apitoken);
-			$url = "http://api.sidebox.com/plugin/nearbyserviceareareviewcombo?storefronttoken=$token&state=$state&city=$city&zoomlevel=$zoom&radius=$radius&reviewcityurl=$reviewCityUrl&reviewstart=$reviewStart&checkinstart=$checkinStart&reviewcount=$reviewCount&checkincount=$checkinCount&showmap=$showMap&mapsize=$mapSize&mapscrollwheel=$mapScrollWheel&fblike=$fbLike&fbcomment=$fbcomment&showfavorites=$showFavorites&techemail=$techEmail&agent=$agent";
-			$response = wp_remote_get($url, array( 'timeout' => 15));
+
+			$url = self::ApiLocation() . "nearbyserviceareareviewcombo";
+			$args = array(
+				'method' => 'POST',
+				'body' => self::get_pluginparams($atts),
+				'timeout' => 15
+			);
+			$response = wp_remote_post($url, $args);
 			if( is_wp_error( $response ) ) {
 			   return '';
 			} else {
@@ -192,10 +154,17 @@
 			$count = isset($atts['count']) ? $atts['count'] : '';
 			$playlist = isset($atts['playlist']) ? $atts['playlist'] : '';
 			$showTranscription = isset($atts['showtranscription']) ? $atts['showtranscription'] : '';
-			$options = get_option('nearbynow_options');
-			$apitoken = $options['text_string'];
-			$token = trim($apitoken);
-			$url = "http://api.sidebox.com/plugin/testimonials?storefronttoken=$token&start=$start&count=$count&playlist=$playlist&showtranscription=$showTranscription&agent=$agent";
+
+			$token = '';
+			if(isset($atts['apikey']) ) {
+				$token = trim($atts['apikey']);
+			} else {
+				$options = get_option('nearbynow_options');
+				$apitoken = $options['text_string'];
+				$token = trim($apitoken);
+			}
+
+			$url = self::ApiLocation() . "testimonials?storefronttoken=$token&start=$start&count=$count&playlist=$playlist&showtranscription=$showTranscription&agent=$agent";
 			$response = wp_remote_get($url, array( 'timeout' => 15));
 			if( is_wp_error( $response ) ) {
 			   return '';
@@ -209,10 +178,17 @@
 			$agent = urlencode($_SERVER['HTTP_USER_AGENT']);
 			$start = isset($atts['start']) ? $atts['start'] : '';
 			$count = isset($atts['count']) ? $atts['count'] : '';
-			$options = get_option('nearbynow_options');
-			$apitoken = $options['text_string'];
-			$token = trim($apitoken);
-			$url = "http://api.sidebox.com/plugin/photogallery?storefronttoken=$token&start=$start&count=$count&agent=$agent";
+
+			$token = '';
+			if(isset($atts['apikey']) ) {
+				$token = trim($atts['apikey']);
+			} else {
+				$options = get_option('nearbynow_options');
+				$apitoken = $options['text_string'];
+				$token = trim($apitoken);
+			}
+
+			$url = self::ApiLocation() . "photogallery?storefronttoken=$token&start=$start&count=$count&agent=$agent";
 			$response = wp_remote_get($url, array( 'timeout' => 15));
 			if( is_wp_error( $response ) ) {
 			   return '';
@@ -222,11 +198,10 @@
 		}
 
 		static function register_scripts() {
-			//wp_register_style( 'nearbynow_css', 'https://s3.amazonaws.com/cdn.nearbynow.co/css/nnplugin.css' );
-			wp_register_style( 'nearbynow_css', 'https://d6at0twdth9j2.cloudfront.net/css/plugin.min.css' );
-	    wp_register_script( 'nearbynow_map', 'http://maps.google.com/maps/api/js?sensor=false', null, null, true);
-	    wp_register_script( 'nearbynow_heatmap', 'https://s3.amazonaws.com/cdn.nearbynow.co/scripts/heatmap.js', null, null, true);
-	    wp_register_script( 'nearbynow_heatmap_gmaps', 'https://s3.amazonaws.com/cdn.nearbynow.co/scripts/heatmap-gmaps.js', array('nearbynow_heatmap') , null, true);
+			$options = get_option('nearbynow_options');
+			wp_register_style( 'nearbynow_css', 'https://d2gwjd5chbpgug.cloudfront.net/v2/css/plugin.min.css' );
+
+	   		wp_register_script( 'nearbynow_heatmap', 'https://d2gwjd5chbpgug.cloudfront.net/v2/scripts/heatmap.js', null, null, true);
 		}
 
 		static function render_scripts() {
@@ -234,9 +209,97 @@
 				return;
 
 			wp_print_styles('nearbynow_css');
-			wp_print_scripts('nearbynow_map');
 			wp_print_scripts('nearbynow_heatmap');
-			wp_print_scripts('nearbynow_heatmap_gmaps');
+		}
+
+		static function ApiLocation() {
+			return "https://api.sidebox.com/plugin/";
+		}
+
+		static function get_pluginparams($atts){
+			// Server Variables
+			$agent = $_SERVER['HTTP_USER_AGENT'];
+			$referrer = $_SERVER['HTTP_REFERER'];
+			$hostUrl = "http" . (($_SERVER['SERVER_PORT'] == 443) ? "s://" : "://") . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+
+			// Plugin options
+			$token = '';
+			if(isset($atts['apikey']) ) {
+				$token = trim($atts['apikey']);
+			} else {
+				$options = get_option('nearbynow_options');
+				$apitoken = $options['text_string'];
+				$token = trim($apitoken);
+			}
+
+			// Common Parameters - Appearance
+			$showMap = isset($atts['showmap']) ? $atts['showmap'] : '';
+			$zoom = isset($atts['zoomlevel']) ? $atts['zoomlevel'] : '';
+			$mapScrollWheel = isset($atts['mapscrollwheel']) ? $atts['mapscrollwheel'] : '';
+			$fbLike = isset($atts['fblike']) ? $atts['fblike'] : '';
+			$fbcomment = isset($atts['fbcomment']) ? $atts['fbcomment'] : '';
+			$serviceAreaName = null;
+			if (isset($atts['serviceareaname'])) {
+				$serviceAreaName = trim($atts['serviceareaname']);
+			}
+
+			// Common Parameters - Filtering
+			$state = isset($atts['state']) ? $atts['state'] : '';
+			$city = isset($atts['city']) ? $atts['city'] : '';
+			$radius = isset($atts['radius']) ? $atts['radius'] : '';
+			$showFavorites = isset($atts['showfavorites']) ? $atts['showfavorites'] : '';
+			$techEmail = null;
+			if (isset($atts['techemail'])) {
+				$techEmail = trim($atts['techemail']);
+			}
+
+			// servicearea and recentreviews
+			$start = isset($atts['start']) ? $atts['start'] : '';
+			$count = isset($atts['count']) ? $atts['count'] : '';
+
+			// serviceareareviewcombo
+			$reviewStart = isset($atts['reviewstart']) ? $atts['reviewstart'] : '';
+			$checkinStart = isset($atts['checkinstart']) ? $atts['checkinstart'] : '';
+			$reviewCount = isset($atts['reviewcount']) ? $atts['reviewcount'] : '';
+			$checkinCount = isset($atts['checkincount']) ? $atts['checkincount'] : '';
+			$reviewCityUrl = null;
+			if (isset($atts['reviewcityurl'])) {
+				$reviewCityUrl = str_replace('\"', '', trim($atts['reviewcityurl']));
+			}
+			$mapSize = isset($atts['mapsize']) ? $atts['mapsize'] : '';
+
+			$body = array(
+				'agent' => $agent,
+				'referrer' => $referrer,
+				'hosturl' => $hostUrl,
+
+				'storefronttoken' => $token,
+
+				'showmap' => $showMap,
+				'zoomlevel' => $zoom,
+				'mapscrollwheel' => $mapScrollWheel,
+				'fblike' => $fbLike,
+				'fbcomment' => $fbcomment,
+				'serviceareaname' => $serviceAreaName,
+
+				'state' => $state,
+				'city' => $city,
+				'radius' => $radius,
+				'showfavorites' => $showFavorites,
+				'techemail' => $techEmail,
+
+				'start' => $start,
+				'count' => $count,
+
+				'reviewstart' => $reviewStart,
+				'checkinstart' => $checkinStart,
+				'reviewcount' => $reviewCount,
+				'checkincount' => $checkinCount,
+				'reviewcityurl' => $reviewCityUrl,
+				'mapsize' => $mapSize
+			);
+
+			return $body;
 		}
 
 	}
@@ -271,10 +334,37 @@
 	<?php
 	}
 
-	function nearbynow_admin_init() {
-		register_setting( 'nearbynow_options', 'nearbynow_options', 'nearbynow_options_validate' );
-		add_settings_section('nearbynow_main', 'Nearby Now Settings', 'nearbynow_section_text', 'nearbynow');
-		add_settings_field('nearbynow_text_string', 'API Token', 'nearbynow_setting_string', 'nearbynow', 'nearbynow_main');
+	function nearbynow_admin_init()
+	{
+		register_setting(
+			'nearbynow_options',
+			'nearbynow_options',
+			'nearbynow_options_validate'
+		);
+
+		add_settings_section(
+			'nearbynow_main',
+			'Nearby Now Settings',
+			'nearbynow_section_text',
+			'nearbynow'
+		);
+
+		add_settings_field(
+			'nearbynow_text_string',
+			'API Token',
+			'nearbynow_setting_string',
+			'nearbynow',
+			'nearbynow_main'
+		);
+
+		// add_settings_field(
+			// 'disable_google_maps',
+			// 'Disable Google Map Services',
+			// 'nearbynow_google_maps_toggle',
+			// 'nearbynow',
+			// 'nearbynow_main'
+		// );
+
 		//add_settings_field('nearbynow_open_graph_string', 'Exclude Open Graph Headers', 'nearbynow_open_graph_string', 'nearbynow', 'nearbynow_main');
 	}
 
@@ -282,9 +372,22 @@
 		echo '<p>To use the plugin, simply enter one of the plugin short-codes into any page or blog post. To see an example of how to enter a short code, visit our <a href="http://servicepros.nearbynow.co/plugins/wordpress-plugins/">sample wordpress site</a>.</p><br/><p>The API Token is required for the Nearby Now plugin to function. If the token is missing or invalid the plugin will display an empty string. Enter your API key below and click save settings.</p>';
 	}
 
-	function nearbynow_setting_string() {
+	function nearbynow_setting_string()
+	{
 		$options = get_option('nearbynow_options');
 		echo "<input id='nearbynow_text_string' name='nearbynow_options[text_string]' size='40' type='text' value='{$options['text_string']}' />";
+	}
+
+	function nearbynow_google_maps_toggle()
+	{
+		$options = get_option('nearbynow_options');
+		$val = "0";
+
+		if ($options['disable_google_maps'] == true)
+			$val = "1";
+
+		echo "<input id='disable_google_maps' name='nearbynow_options[disable_google_maps]' type='checkbox' value='1' " . checked(1, $options['disable_google_maps'], false) .  " />";
+		echo "<p style='display: inline-block; margin-left: 8px'>(Check this flag if you already have a plugin that uses the Google Maps API)</p>";
 	}
 
 	//function nearbynow_open_graph_string() {
